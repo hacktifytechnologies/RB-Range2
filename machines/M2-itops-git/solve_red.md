@@ -18,6 +18,12 @@ Login to Gitea as `svc-cicd`, locate the `pul-infra-config` repository, excavate
 ### Step 1 — Login to Gitea
 Browse to `http://203.x.x.x:3000` → login as `svc-cicd / CICD@Deploy!2024`
 
+<img width="2559" height="1435" alt="image" src="https://github.com/user-attachments/assets/c0d61de2-4524-4b16-9595-a3d69a0cb9d1" />
+
+
+<img width="2559" height="986" alt="image" src="https://github.com/user-attachments/assets/41a35892-74f3-486e-99c7-7e9a76e5fef2" />
+
+
 ### Step 2 — Enumerate Repositories
 ```bash
 # Via API
