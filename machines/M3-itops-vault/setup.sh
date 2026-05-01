@@ -300,12 +300,12 @@ vault kv put secret/pul/creds/vault-ssh \
 # Main objective secret. AppRole should NOT be able to read this directly.
 vault kv put secret/pul/ad \
     domain="corp.prabalurja.in" \
-    dc_host="203.x.x.x" \
+    dc_host="11.x.x.x" \
     dc_port="389" \
     bind_dn="CN=svc-monitor,CN=Users,DC=corp,DC=prabalurja,DC=in" \
     bind_pass="M0n!tor@PUL24" \
     description="IT Operations AD service account — monitoring and reporting access" \
-    pivot_note="Prometheus metrics portal: 203.x.x.x:9090" >/dev/null
+    note="Prometheus metrics portal: 203.x.x.x:9090" >/dev/null
 
 vault kv put secret/pul/cicd/pipeline \
     gitea_url="http://203.x.x.x:3000" \
