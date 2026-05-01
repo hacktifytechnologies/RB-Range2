@@ -50,7 +50,9 @@ curl -s -c /tmp/awx_cookies.txt -X POST http://203.x.x.x:8080/login \
   -H "Content-Type: application/x-www-form-urlencoded" \
   -d "username=devops-admin&password=DevOps%40PUL%2124" -L
 ```
-<img width="2008" height="914" alt="image" src="https://github.com/user-attachments/assets/5cea20fe-5d49-42e9-bad2-f9297b96e03d" />
+
+<img width="2031" height="789" alt="image" src="https://github.com/user-attachments/assets/92a34506-8c2b-40a2-9daa-f2ce76c2f5d5" />
+
 
 
 **Pivot Credential:** `devops-admin : DevOps@PUL!24` → M5 `203.x.x.x:8080`
