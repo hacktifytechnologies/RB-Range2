@@ -1,7 +1,4 @@
 # Active Directory Zone Dependencies - OPERATION GRIDFALL
-## Inter-Range Integration Specification
-## Classification: RESTRICTED - Exercise Design Team Only
-## Document Version: 1.0 | Authored by: RNG-IT-02 Team
 
 ---
 
@@ -12,7 +9,7 @@ This document is the handshake specification between the **RNG-IT-02 (Internal O
 It is split into two sections:
 
 - **Section A - What You Must Build:** Everything the AD zone teammate must implement so that the ranges connect correctly and challenge artefacts are consistent.
-- **Section B - What You Must Provide Back to Us:** The specific values, credentials, and artefacts the AD zone must send back to the RNG-IT-02 and RNG-IT-01 teams so we can plant them correctly in our machines.
+- **Section B - What You Must Provide Back to Us:** The specific values, credentials, and artefacts the AD zone must have so we can plant them correctly in our machines.
 
 ---
 
