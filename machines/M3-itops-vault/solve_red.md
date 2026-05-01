@@ -30,6 +30,8 @@ export VAULT_TOKEN="<appRole_token>"
 vault kv list secret/pul/
 vault kv list secret/pul/cicd/
 vault kv list secret/pul/deploy/
+vault kv list secret/pul/creds/
+vault kv get secret/pul/creds/vault-ssh
 ```
 Note: `secret/pul/ad` is listed but read will be denied with AppRole policy.
 
