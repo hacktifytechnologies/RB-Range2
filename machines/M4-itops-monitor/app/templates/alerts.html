@@ -1,0 +1,33 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>PUL Monitoring — Alerts</title>
+<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0e1a;color:#c9d1d9;min-height:100vh;display:flex;flex-direction:column}.topbar{background:#0d1117;border-bottom:1px solid rgba(196,165,62,0.2);padding:6px 20px;font-size:10.5px;color:rgba(255,255,255,0.32);display:flex;justify-content:space-between}.header{background:linear-gradient(90deg,#0d1117,#111827);border-bottom:2px solid #c4a53e;padding:0 20px;height:60px;display:flex;align-items:center}.header h1{color:#c4a53e;font-size:15px;font-weight:700}.nav{background:#111827;border-bottom:1px solid #21262d;display:flex;padding:0 20px;gap:4px}.nav a{color:rgba(255,255,255,0.5);font-size:12.5px;padding:10px 14px;border-bottom:2px solid transparent;text-decoration:none}.nav a.active,.nav a:hover{color:#c4a53e;border-color:#c4a53e}.nav .so{margin-left:auto;color:rgba(255,255,255,0.35)!important;font-size:12px}.main{flex:1;padding:20px}.alert-card{background:#161b22;border:1px solid #21262d;border-radius:8px;padding:14px;margin-bottom:10px;border-left:3px solid}.alert-card.crit{border-color:#f85149}.alert-card.warn{border-color:#f59e0b}.alert-card .ah{display:flex;align-items:center;gap:10px;margin-bottom:6px}.alert-card .badge{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:12px}.badge-crit{background:rgba(248,81,73,0.15);color:#f85149}.badge-warn{background:rgba(245,158,11,0.15);color:#f59e0b}.alert-card .name{color:#c9d1d9;font-size:13px;font-weight:600}.alert-card .desc{color:#8b949e;font-size:12px;margin-bottom:4px}.alert-card .meta{font-size:10.5px;color:#8b949e;font-family:monospace}.footer{background:#0d1117;border-top:1px solid #21262d;padding:10px 20px;font-size:10.5px;color:rgba(255,255,255,0.22);display:flex;justify-content:space-between}</style>
+</head><body>
+<div class="topbar"><span>🇮🇳 Prabal Urja Limited — NEXUS-IT Monitoring</span><span>Logged in as: <strong>{{ user.username }}</strong></span></div>
+<header class="header"><h1>📡 &nbsp;PUL Monitoring Portal — Active Alerts</h1></header>
+<nav class="nav">
+  <a href="/dashboard">Dashboard</a><a href="/targets">Targets</a><a href="/alerts" class="active">Alerts</a>
+  <a href="/logout" class="so">Sign Out</a>
+</nav>
+<div class="main">
+  <div class="alert-card crit">
+    <div class="ah"><span class="badge badge-crit">CRITICAL</span><span class="name">VaultTargetDown</span></div>
+    <div class="desc">Vault metrics endpoint 203.x.x.x:8200 has been unreachable for &gt;5 minutes. Scrape timeout.</div>
+    <div class="meta">instance="203.x.x.x:8200" | job="vault-metrics" | firing for 00:12:34</div>
+  </div>
+  <div class="alert-card crit">
+    <div class="ah"><span class="badge badge-crit">CRITICAL</span><span class="name">LDAPReplicationLag</span></div>
+    <div class="desc">LDAP replication lag exceeds 4s threshold. Possible split-brain or provider unreachable.</div>
+    <div class="meta">instance="203.x.x.x:389" | job="ldap-monitor" | firing for 00:04:18</div>
+  </div>
+  <div class="alert-card warn">
+    <div class="ah"><span class="badge badge-warn">WARNING</span><span class="name">HighAuthFailureRate</span></div>
+    <div class="desc">Authentication failure rate for LDAP exceeded 10/min threshold in last 5 minutes.</div>
+    <div class="meta">instance="203.x.x.x:389" | source_ip="203.0.2.X" | firing for 00:08:02</div>
+  </div>
+  <div class="alert-card warn">
+    <div class="ah"><span class="badge badge-warn">WARNING</span><span class="name">AnsibleJobQueueDepth</span></div>
+    <div class="desc">Ansible AWX job queue depth is 14. Normal threshold: &lt;5.</div>
+    <div class="meta">instance="203.x.x.x:8080" | job="ansible-metrics" | firing for 00:02:15</div>
+  </div>
+</div>
+<div class="footer"><span>© 2024 Prabal Urja Limited.</span><span>PUL-MONITOR v2.4</span></div>
+</body></html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PUL Monitoring Portal — Dashboard</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0e1a;color:#c9d1d9;min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+.topbar{background:#0d1117;border-bottom:1px solid rgba(196,165,62,0.2);padding:6px 20px;font-size:10.5px;color:rgba(255,255,255,0.32);display:flex;justify-content:space-between}
+.topbar .dot{width:6px;height:6px;border-radius:50%;background:#10b981;display:inline-block;margin-right:4px}
+.header{background:linear-gradient(90deg,#0d1117,#111827);border-bottom:2px solid #c4a53e;padding:0 20px;height:60px;display:flex;align-items:center;justify-content:space-between}
+.header .brand{display:flex;align-items:center;gap:12px}
+.header .brand .icon{font-size:24px}
+.header .brand h1{color:#c4a53e;font-size:15px;font-weight:700}
+.header .brand p{color:rgba(255,255,255,0.35);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.nav{background:#111827;border-bottom:1px solid #21262d;display:flex;align-items:center;padding:0 20px;gap:4px}
+.nav a{color:rgba(255,255,255,0.5);font-size:12.5px;padding:10px 14px;border-bottom:2px solid transparent;text-decoration:none;transition:all .15s}
+.nav a:hover,.nav a.active{color:#c4a53e;border-color:#c4a53e}
+.nav .signout{margin-left:auto;color:rgba(255,255,255,0.35)!important;font-size:12px}
+.main{flex:1;padding:20px;max-width:1200px;width:100%;margin:0 auto}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.metric{background:#161b22;border:1px solid #21262d;border-radius:8px;padding:16px}
+.metric .label{font-size:10.5px;color:#8b949e;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.metric .value{font-size:26px;font-weight:800;color:#58a6ff;line-height:1}
+.metric .sub{font-size:10.5px;color:#8b949e;margin-top:4px}
+.metric.warn .value{color:#f59e0b}.metric.err .value{color:#f85149}.metric.ok .value{color:#3fb950}
+.panel{background:#161b22;border:1px solid #21262d;border-radius:8px;overflow:hidden;margin-bottom:16px}
+.ph{background:#21262d;border-bottom:1px solid #30363d;padding:10px 14px;font-size:12px;font-weight:600;color:#c9d1d9;display:flex;align-items:center;justify-content:space-between}
+.ph .badge{font-size:10px;background:rgba(196,165,62,0.15);color:#c4a53e;padding:2px 8px;border-radius:12px}
+.pb{padding:14px}
+.target-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #21262d;font-size:12px}
+.target-row:last-child{border-bottom:none}
+.dot-g{width:8px;height:8px;border-radius:50%;background:#3fb950;flex-shrink:0}
+.dot-r{width:8px;height:8px;border-radius:50%;background:#f85149;flex-shrink:0}
+.t-name{color:#c9d1d9;width:180px;flex-shrink:0}.t-ip{color:#8b949e;font-family:monospace;font-size:11px;width:160px}
+.t-latency{color:#58a6ff;font-family:monospace;font-size:11px;margin-left:auto}
+.footer{background:#0d1117;border-top:1px solid #21262d;padding:10px 20px;font-size:10.5px;color:rgba(255,255,255,0.22);display:flex;justify-content:space-between}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <span>🇮🇳 Prabal Urja Limited — NEXUS-IT Observability Platform</span>
+  <span><span class="dot"></span>All systems nominal | Logged in as: <strong>{{ user.username }}</strong></span>
+</div>
+<header class="header">
+  <div class="brand"><span class="icon">📡</span><div><h1>PUL Monitoring Portal</h1><p>Prometheus-Compatible Observability Stack</p></div></div>
+  <div style="color:rgba(255,255,255,0.4);font-size:11px">Role: <strong style="color:#c4a53e">{{ user.role | upper }}</strong></div>
+</header>
+<nav class="nav">
+  <a href="/dashboard" class="active">Dashboard</a>
+  <a href="/targets">Targets</a>
+  <a href="/alerts">Alerts</a>
+  <a href="#" style="color:rgba(255,255,255,0.3)">Graphs</a>
+  <a href="#" style="color:rgba(255,255,255,0.3)">Rules</a>
+  <a href="/logout" class="signout">Sign Out</a>
+</nav>
+<div class="main">
+  <div class="grid4">
+    <div class="metric ok"><div class="label">Targets Up</div><div class="value">18</div><div class="sub">of 20 configured</div></div>
+    <div class="metric err"><div class="label">Active Alerts</div><div class="value">9</div><div class="sub">2 critical, 7 warning</div></div>
+    <div class="metric"><div class="label">Metrics Ingested</div><div class="value">4.2M</div><div class="sub">last 24 hours</div></div>
+    <div class="metric warn"><div class="label">Scrape Errors</div><div class="value">3</div><div class="sub">last scrape cycle</div></div>
+  </div>
+  <div class="panel">
+    <div class="ph">Active Scrape Targets <span class="badge">18 / 20</span></div>
+    <div class="pb">
+      <div class="target-row"><span class="dot-g"></span><span class="t-name">node-exporter (ldap)</span><span class="t-ip">203.x.x.x:9100</span><span class="t-latency">12ms</span></div>
+      <div class="target-row"><span class="dot-g"></span><span class="t-name">node-exporter (git)</span><span class="t-ip">203.x.x.x:9100</span><span class="t-latency">8ms</span></div>
+      <div class="target-row"><span class="dot-r"></span><span class="t-name">vault-metrics</span><span class="t-ip">203.x.x.x:8200</span><span class="t-latency">timeout</span></div>
+      <div class="target-row"><span class="dot-g"></span><span class="t-name">ansible-metrics</span><span class="t-ip">203.x.x.x:8080</span><span class="t-latency">21ms</span></div>
+      <div class="target-row"><span class="dot-g"></span><span class="t-name">grid-substation-N01</span><span class="t-ip">193.x.x.x:9100</span><span class="t-latency">34ms</span></div>
+      <div class="target-row"><span class="dot-g"></span><span class="t-name">grid-substation-S04</span><span class="t-ip">193.x.x.x:9100</span><span class="t-latency">29ms</span></div>
+    </div>
+  </div>
+  <div style="background:#161b22;border:1px solid #21262d;border-radius:8px;padding:12px 14px;font-size:11.5px;color:#8b949e">
+    ℹ &nbsp;Prometheus-compatible <code style="color:#58a6ff;background:#0d1117;padding:1px 5px;border-radius:3px">/metrics</code> endpoint available at <code style="color:#58a6ff;background:#0d1117;padding:1px 5px;border-radius:3px">http://203.x.x.x:9090/metrics</code> for scraper configuration.
+  </div>
+</div>
+<div class="footer">
+  <span>© 2024 Prabal Urja Limited. IT Operations Division.</span>
+  <span>PUL-MONITOR v2.4 | Prometheus v2.45.0-compat</span>
+</div>
+</body></html>

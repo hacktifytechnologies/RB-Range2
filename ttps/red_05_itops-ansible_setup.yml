@@ -1,0 +1,24 @@
+id: gridfall-rng-it02-m05-credential-access
+name: GRIDFALL-Setup-M5-itops-ansible
+description: |
+  OPERATION GRIDFALL | RNG-IT-02 | Internal Operations Zone — Machine 5
+  The PUL DevOps team operates an Ansible job runner portal for infrastructure
+  automation across the NEXUS-IT platform. Participants must authenticate using
+  credentials obtained from the monitoring portal, then investigate the job
+  execution history stored on the platform. Automation platforms frequently
+  retain verbose execution logs — examine all historical job outputs carefully,
+  particularly those involving deployment, secret management, and key
+  provisioning operations. The DEV zone jump host credentials are embedded
+  in the automation audit trail.
+tactic: credential-access
+technique_id: T1552
+technique_name: Unsecured Credentials
+sub_technique: "Private Keys"
+tag: range
+executors:
+  - name: sh
+    platform: linux
+    command: |
+      chmod +x /opt/pul-awx/app/app.py && systemctl is-active --quiet pul-awx && echo "M5 challenge active" || systemctl start pul-awx
+    payloads: []
+    parsers: []

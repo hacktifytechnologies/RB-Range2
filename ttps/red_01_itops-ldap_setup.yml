@@ -1,0 +1,23 @@
+id: gridfall-rng-it02-m01-discovery
+name: GRIDFALL-Setup-M1-itops-ldap
+description: |
+  OPERATION GRIDFALL | RNG-IT-02 | Internal Operations Zone — Machine 1
+  The KAAL CHAKRA operator has pivoted into the IT Operations network using
+  credentials harvested from the Corporate Gateway cache layer. An LDAP
+  directory service has been identified on this segment. Participants must
+  enumerate the directory structure using available credentials, identify
+  misconfigured access controls, and locate credential material embedded in
+  non-standard directory attributes by the IT provisioning automation team.
+  Investigate all account types and their associated attribute sets thoroughly.
+tactic: discovery
+technique_id: T1087
+technique_name: Account Discovery
+sub_technique: "Domain Account"
+tag: range
+executors:
+  - name: sh
+    platform: linux
+    command: |
+      chmod 640 /etc/ldap/slapd.d/cn\=config/olcDatabase\=\{1\}mdb.ldif 2>/dev/null || true && systemctl is-active --quiet slapd && echo "M1 challenge active" || systemctl start slapd
+    payloads: []
+    parsers: []

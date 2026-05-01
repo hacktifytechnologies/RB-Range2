@@ -1,0 +1,52 @@
+<!-- login.html -->
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PUL Monitoring Portal — Login</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(135deg,#0a0e1a 0%,#0d1b2a 50%,#1a2744 100%);min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+.topbar{background:rgba(0,0,0,0.4);border-bottom:1px solid rgba(196,165,62,0.2);padding:6px 2rem;font-size:10.5px;color:rgba(255,255,255,0.32);display:flex;justify-content:space-between}
+.topbar .dot{width:6px;height:6px;border-radius:50%;background:#10b981;display:inline-block;margin-right:5px}
+.main{flex:1;display:flex;align-items:center;justify-content:center;padding:2rem}
+.box{width:420px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.6);backdrop-filter:blur(10px)}
+.bh{background:rgba(0,0,0,0.4);border-bottom:2px solid #c4a53e;padding:24px;text-align:center}
+.bh .icon{font-size:40px;margin-bottom:10px}
+.bh h1{color:#fff;font-size:17px;font-weight:700;letter-spacing:.03em}
+.bh p{color:rgba(255,255,255,0.38);font-size:11px;margin-top:4px;letter-spacing:.06em;text-transform:uppercase}
+.bb{padding:24px}
+.fg{margin-bottom:16px}
+.fg label{display:block;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,0.42);margin-bottom:5px}
+.fg input{width:100%;padding:10px 14px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.12);border-radius:7px;color:#fff;font-size:13px;outline:none;transition:all .2s}
+.fg input:focus{border-color:#c4a53e;box-shadow:0 0 0 3px rgba(196,165,62,0.15)}
+.fg input::placeholder{color:rgba(255,255,255,0.22)}
+.btn{width:100%;padding:11px;background:linear-gradient(135deg,#c4a53e,#d4bb5a);color:#0a0e1a;border:none;border-radius:7px;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.btn:hover{opacity:.92}
+.err{background:rgba(185,28,28,0.2);border:1px solid rgba(185,28,28,0.4);border-radius:5px;padding:9px 12px;font-size:12px;color:#fca5a5;margin-bottom:14px}
+.footer{background:rgba(0,0,0,0.3);border-top:1px solid rgba(255,255,255,0.06);padding:10px 2rem;font-size:10.5px;color:rgba(255,255,255,0.22);display:flex;justify-content:space-between}
+</style></head>
+<body>
+<div class="topbar">
+  <span>🇮🇳 Prabal Urja Limited — Internal Monitoring Infrastructure</span>
+  <span><span class="dot"></span>Monitoring Active | Classification: INTERNAL</span>
+</div>
+<div class="main">
+<div class="box">
+  <div class="bh">
+    <div class="icon">📡</div>
+    <h1>PUL Monitoring Portal</h1>
+    <p>NEXUS-IT Infrastructure Observability</p>
+  </div>
+  <div class="bb">
+    {% if error %}<div class="err">⚠ {{ error }}</div>{% endif %}
+    <form method="POST" action="/login">
+      <div class="fg"><label>Username</label><input type="text" name="username" placeholder="monitoring account" required autofocus></div>
+      <div class="fg"><label>Password</label><input type="password" name="password" placeholder="enter password" required></div>
+      <button type="submit" class="btn">Sign In to Portal</button>
+    </form>
+  </div>
+</div>
+</div>
+<div class="footer">
+  <span>© 2024 Prabal Urja Limited. All Rights Reserved. | IT Operations Division</span>
+  <span>PUL-MONITOR v2.4 | Prometheus-compatible</span>
+</div>
+</body></html>

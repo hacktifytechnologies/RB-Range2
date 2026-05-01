@@ -1,0 +1,23 @@
+id: gridfall-rng-it02-m03-credential-access
+name: GRIDFALL-Setup-M3-itops-vault
+description: |
+  OPERATION GRIDFALL | RNG-IT-02 | Internal Operations Zone — Machine 3
+  The PUL secrets management platform has been identified on this segment.
+  Participants must authenticate using service account credentials obtained
+  from the code repository, then investigate the secrets platform configuration
+  for misconfigurations that expose elevated access. Examine how the service
+  has been deployed and what operational artefacts may be accessible through
+  system-level inspection. The secrets platform holds credentials for multiple
+  downstream systems including the identity infrastructure of adjacent zones.
+tactic: credential-access
+technique_id: T1552
+technique_name: Unsecured Credentials
+sub_technique: "Private Keys"
+tag: range
+executors:
+  - name: sh
+    platform: linux
+    command: |
+      chmod 640 /opt/vault/vault.hcl && systemctl is-active --quiet pul-vault && echo "M3 challenge active" || systemctl start pul-vault
+    payloads: []
+    parsers: []

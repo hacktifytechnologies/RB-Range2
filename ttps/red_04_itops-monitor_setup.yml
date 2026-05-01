@@ -1,0 +1,24 @@
+id: gridfall-rng-it02-m04-discovery
+name: GRIDFALL-Setup-M4-itops-monitor
+description: |
+  OPERATION GRIDFALL | RNG-IT-02 | Internal Operations Zone — Machine 4
+  The PUL IT Operations team runs a Prometheus-compatible monitoring stack
+  to observe all infrastructure components. Participants must authenticate
+  to the monitoring portal using credentials obtained from the secrets
+  management platform, then investigate all available API endpoints for
+  misconfigured access controls. Monitoring systems often expose operational
+  data through standardised scraping interfaces — examine the observability
+  endpoints carefully for credential material embedded by automation tooling
+  in metric labels, configuration exports, or target discovery responses.
+tactic: discovery
+technique_id: T1046
+technique_name: Network Service Discovery
+sub_technique: ""
+tag: range
+executors:
+  - name: sh
+    platform: linux
+    command: |
+      chmod +x /opt/pul-monitor/app/app.py && systemctl is-active --quiet pul-monitor && echo "M4 challenge active" || systemctl start pul-monitor
+    payloads: []
+    parsers: []

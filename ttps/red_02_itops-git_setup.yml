@@ -1,0 +1,24 @@
+id: gridfall-rng-it02-m02-collection
+name: GRIDFALL-Setup-M2-itops-git
+description: |
+  OPERATION GRIDFALL | RNG-IT-02 | Internal Operations Zone — Machine 2
+  PUL's internal DevOps portal hosts repositories used by the infrastructure
+  automation team. Participants must authenticate using credentials obtained
+  from the LDAP directory, locate repositories accessible to the service
+  account, and conduct a thorough investigation of the repository's version
+  history. Development teams sometimes commit sensitive configuration material
+  that is later removed — but version control systems retain all history.
+  Examine all historical commits carefully to identify embedded credentials
+  that enable access to the next stage of the infrastructure.
+tactic: collection
+technique_id: T1213
+technique_name: Data from Information Repositories
+sub_technique: "Code Repositories"
+tag: range
+executors:
+  - name: sh
+    platform: linux
+    command: |
+      chmod 750 /opt/gitea/data/repositories && systemctl is-active --quiet pul-gitea && echo "M2 challenge active" || systemctl start pul-gitea
+    payloads: []
+    parsers: []

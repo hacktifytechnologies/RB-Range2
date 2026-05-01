@@ -1,0 +1,38 @@
+<!-- dashboard.html -->
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>PUL AWX — Dashboard</title>
+<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;background:#f3f4f6;color:#111827;min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}.topbar{background:#1e1b4b;border-bottom:1px solid rgba(196,165,62,0.2);padding:6px 20px;font-size:10.5px;color:rgba(255,255,255,0.36);display:flex;justify-content:space-between}.hdr{background:linear-gradient(90deg,#1e1b4b,#2d1b69);border-bottom:2px solid #c4a53e;padding:0 20px;height:62px;display:flex;align-items:center;justify-content:space-between}.hdr h1{color:#c4a53e;font-size:15px;font-weight:700;display:flex;align-items:center;gap:10px}.hdr .user{color:rgba(255,255,255,0.4);font-size:11px}.nav{background:#312e81;border-bottom:1px solid #4338ca;display:flex;padding:0 20px;gap:2px}.nav a{color:rgba(255,255,255,0.5);font-size:12.5px;padding:10px 14px;border-bottom:2px solid transparent;text-decoration:none;transition:all .15s}.nav a:hover,.nav a.active{color:#c4a53e;border-color:#c4a53e}.nav .so{margin-left:auto;color:rgba(255,255,255,0.3)!important;font-size:12px}.main{flex:1;padding:20px;max-width:1200px;width:100%;margin:0 auto}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}.kpi{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.05)}.kpi .label{font-size:10.5px;color:#6b7280;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}.kpi .value{font-size:26px;font-weight:800;color:#1e1b4b;line-height:1}.kpi .sub{font-size:10.5px;color:#9ca3af;margin-top:4px}.kpi.ok .value{color:#059669}.kpi.err .value{color:#dc2626}.kpi.warn .value{color:#d97706}.panel{background:#fff;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,.05)}.ph{background:#312e81;border-bottom:2px solid #c4a53e;padding:11px 14px;color:#fff;font-size:12.5px;font-weight:600;display:flex;align-items:center;justify-content:space-between}.ph a{color:#c4a53e;font-size:11px;text-decoration:none}.pb{padding:14px}.job-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f3f4f6;font-size:12.5px}.job-row:last-child{border-bottom:none}.job-row:hover{background:#fafafa;margin:0 -14px;padding:8px 14px}.dot-g{width:9px;height:9px;border-radius:50%;background:#10b981;flex-shrink:0}.dot-r{width:9px;height:9px;border-radius:50%;background:#ef4444;flex-shrink:0}.jname{font-weight:600;color:#1e1b4b;width:200px;flex-shrink:0}.jmeta{color:#6b7280;font-size:11px;flex:1}.jdur{color:#9ca3af;font-size:11px;width:60px;text-align:right}.view-link{color:#7c3aed;font-size:11px;text-decoration:none;font-weight:600;flex-shrink:0}.footer{background:#1e1b4b;border-top:1px solid #312e81;padding:10px 20px;font-size:10.5px;color:rgba(255,255,255,0.22);display:flex;justify-content:space-between}</style></head>
+<body>
+<div class="topbar"><span>🇮🇳 Prabal Urja Limited — Ansible Automation Platform</span><span>Logged in as: <strong>{{ user.username }}</strong> ({{ user.role }})</span></div>
+<header class="hdr"><h1>⚙️ &nbsp;PUL Ansible AWX</h1><div class="user">DevOps Automation Portal — NEXUS-IT</div></header>
+<nav class="nav">
+  <a href="/dashboard" class="active">Dashboard</a>
+  <a href="/jobs">Jobs</a>
+  <a href="/files">File Browser</a>
+  <a href="#" style="color:rgba(255,255,255,0.3)">Templates</a>
+  <a href="#" style="color:rgba(255,255,255,0.3)">Inventory</a>
+  <a href="/logout" class="so">Sign Out</a>
+</nav>
+<div class="main">
+  <div class="grid4">
+    <div class="kpi ok"><div class="label">Jobs Today</div><div class="value">18</div><div class="sub">15 successful</div></div>
+    <div class="kpi err"><div class="label">Failed Jobs</div><div class="value">3</div><div class="sub">last 7 days</div></div>
+    <div class="kpi"><div class="label">Templates</div><div class="value">12</div><div class="sub">active</div></div>
+    <div class="kpi warn"><div class="label">Queue Depth</div><div class="value">14</div><div class="sub">above threshold</div></div>
+  </div>
+  <div class="panel">
+    <div class="ph">Recent Jobs <a href="/jobs">View all →</a></div>
+    <div class="pb">
+      {% for job in jobs %}
+      <div class="job-row">
+        <span class="{{ 'dot-g' if job.status == 'successful' else 'dot-r' }}"></span>
+        <span class="jname">{{ job.name }}</span>
+        <span class="jmeta">{{ job.id }} · {{ job.launched_by }} · {{ job.started }}</span>
+        <span class="jdur">{{ job.duration }}</span>
+        <a href="/jobs/{{ job.id }}" class="view-link">View Output</a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<div class="footer"><span>© 2024 Prabal Urja Limited. DevOps Division.</span><span>PUL-AWX v3.1</span></div>
+</body></html>

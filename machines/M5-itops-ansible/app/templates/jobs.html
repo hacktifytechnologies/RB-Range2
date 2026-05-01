@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>PUL AWX — Job History</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f3f4f6;color:#111827;min-height:100vh;display:flex;flex-direction:column}
+.topbar{background:#1e1b4b;border-bottom:1px solid rgba(196,165,62,.2);padding:6px 20px;font-size:10.5px;color:rgba(255,255,255,.36);display:flex;justify-content:space-between}
+.hdr{background:linear-gradient(90deg,#1e1b4b,#2d1b69);border-bottom:2px solid #c4a53e;padding:0 20px;height:62px;display:flex;align-items:center;justify-content:space-between}
+.hdr h1{color:#c4a53e;font-size:15px;font-weight:700}
+.nav{background:#312e81;border-bottom:1px solid #4338ca;display:flex;padding:0 20px;gap:2px}
+.nav a{color:rgba(255,255,255,.5);font-size:12.5px;padding:10px 14px;border-bottom:2px solid transparent;text-decoration:none;transition:all .15s}
+.nav a:hover,.nav a.active{color:#c4a53e;border-color:#c4a53e}
+.nav .so{margin-left:auto;color:rgba(255,255,255,.3)!important;font-size:12px}
+.main{flex:1;padding:20px;max-width:1200px;width:100%;margin:0 auto}
+.panel{background:#fff;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.ph{background:#312e81;border-bottom:2px solid #c4a53e;padding:11px 14px;color:#fff;font-size:12.5px;font-weight:600}
+.table{width:100%;border-collapse:collapse;font-size:12.5px}
+.table th{text-align:left;padding:9px 14px;background:#f9fafb;color:#6b7280;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid #e5e7eb}
+.table td{padding:10px 14px;border-bottom:1px solid #f3f4f6;color:#374151}
+.table tr:hover td{background:#f9fafb}
+.badge{display:inline-block;padding:2px 9px;border-radius:12px;font-size:10.5px;font-weight:700}
+.badge-ok{background:rgba(5,150,105,.12);color:#065f46}
+.badge-fail{background:rgba(220,38,38,.12);color:#991b1b}
+.job-link{color:#7c3aed;font-weight:600;text-decoration:none}
+.job-link:hover{text-decoration:underline}
+.footer{background:#1e1b4b;border-top:1px solid #312e81;padding:10px 20px;font-size:10.5px;color:rgba(255,255,255,.22);display:flex;justify-content:space-between}
+</style>
+</head>
+<body>
+<div class="topbar"><span>🇮🇳 Prabal Urja Limited — Ansible Automation Platform</span><span>Logged in as: <strong>{{ user.username }}</strong></span></div>
+<header class="hdr"><h1>⚙️ &nbsp;PUL Ansible AWX — Job History</h1></header>
+<nav class="nav">
+  <a href="/dashboard">Dashboard</a>
+  <a href="/jobs" class="active">Jobs</a>
+  <a href="/files">File Browser</a>
+  <a href="#" style="color:rgba(255,255,255,.3)">Templates</a>
+  <a href="#" style="color:rgba(255,255,255,.3)">Inventory</a>
+  <a href="/logout" class="so">Sign Out</a>
+</nav>
+<div class="main">
+  <div class="panel">
+    <div class="ph">All Jobs ({{ jobs|length }} total)</div>
+    <table class="table">
+      <tr>
+        <th>Job ID</th><th>Name</th><th>Template</th><th>Launched By</th>
+        <th>Started</th><th>Duration</th><th>Status</th><th>Output</th>
+      </tr>
+      {% for job in jobs %}
+      <tr>
+        <td style="font-family:monospace;font-size:11px;color:#6b7280">{{ job.id }}</td>
+        <td style="font-weight:600;color:#1e1b4b">{{ job.name }}</td>
+        <td style="color:#6b7280;font-size:11.5px">{{ job.template }}</td>
+        <td style="font-family:monospace;font-size:11px">{{ job.launched_by }}</td>
+        <td style="font-size:11.5px;color:#6b7280">{{ job.started }}</td>
+        <td style="font-family:monospace;font-size:11px;color:#9ca3af">{{ job.duration }}</td>
+        <td>
+          <span class="badge {{ 'badge-ok' if job.status == 'successful' else 'badge-fail' }}">
+            {{ job.status | upper }}
+          </span>
+        </td>
+        <td><a href="/jobs/{{ job.id }}" class="job-link">View Output →</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+<div class="footer"><span>© 2024 Prabal Urja Limited. DevOps Division.</span><span>PUL-AWX v3.1</span></div>
+</body>
+</html>

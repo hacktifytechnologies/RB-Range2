@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>PUL Monitoring — Targets</title>
+<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0e1a;color:#c9d1d9;min-height:100vh;display:flex;flex-direction:column}.topbar{background:#0d1117;border-bottom:1px solid rgba(196,165,62,0.2);padding:6px 20px;font-size:10.5px;color:rgba(255,255,255,0.32);display:flex;justify-content:space-between}.header{background:linear-gradient(90deg,#0d1117,#111827);border-bottom:2px solid #c4a53e;padding:0 20px;height:60px;display:flex;align-items:center;justify-content:space-between}.header h1{color:#c4a53e;font-size:15px;font-weight:700}.nav{background:#111827;border-bottom:1px solid #21262d;display:flex;padding:0 20px;gap:4px}.nav a{color:rgba(255,255,255,0.5);font-size:12.5px;padding:10px 14px;border-bottom:2px solid transparent;text-decoration:none}.nav a:hover,.nav a.active{color:#c4a53e;border-color:#c4a53e}.nav .so{margin-left:auto;color:rgba(255,255,255,0.35)!important;font-size:12px}.main{flex:1;padding:20px}.panel{background:#161b22;border:1px solid #21262d;border-radius:8px;overflow:hidden}.ph{background:#21262d;border-bottom:1px solid #30363d;padding:10px 14px;font-size:12px;font-weight:600;color:#c9d1d9}.table{width:100%;border-collapse:collapse;font-size:12px}.table th{text-align:left;padding:9px 14px;background:#0d1117;color:#8b949e;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid #21262d}.table td{padding:9px 14px;border-bottom:1px solid #21262d;color:#c9d1d9}.table tr:last-child td{border-bottom:none}.table tr:hover td{background:#1c2128}.dot-g{display:inline-block;width:8px;height:8px;border-radius:50%;background:#3fb950;margin-right:5px}.dot-r{display:inline-block;width:8px;height:8px;border-radius:50%;background:#f85149;margin-right:5px}.mono{font-family:'Courier New',monospace;font-size:11px;color:#8b949e}.badge-up{background:rgba(63,185,80,0.15);color:#3fb950;padding:2px 8px;border-radius:12px;font-size:10.5px;font-weight:700}.badge-dn{background:rgba(248,81,73,0.15);color:#f85149;padding:2px 8px;border-radius:12px;font-size:10.5px;font-weight:700}.footer{background:#0d1117;border-top:1px solid #21262d;padding:10px 20px;font-size:10.5px;color:rgba(255,255,255,0.22);display:flex;justify-content:space-between}</style>
+</head><body>
+<div class="topbar"><span>🇮🇳 Prabal Urja Limited — NEXUS-IT Monitoring</span><span>Logged in as: <strong>{{ user.username }}</strong></span></div>
+<header class="header"><h1>📡 &nbsp;PUL Monitoring Portal — Scrape Targets</h1></header>
+<nav class="nav">
+  <a href="/dashboard">Dashboard</a><a href="/targets" class="active">Targets</a><a href="/alerts">Alerts</a>
+  <a href="/logout" class="so">Sign Out</a>
+</nav>
+<div class="main">
+<div class="panel">
+  <div class="ph">All Scrape Targets (20 configured)</div>
+  <table class="table">
+    <tr><th>Endpoint</th><th>Job</th><th>Zone</th><th>Last Scrape</th><th>Duration</th><th>Status</th></tr>
+    <tr><td><span class="mono">203.x.x.x:9100</span></td><td>node-exporter</td><td>ldap</td><td>14s ago</td><td>12ms</td><td><span class="badge-up">UP</span></td></tr>
+    <tr><td><span class="mono">203.x.x.x:9100</span></td><td>node-exporter</td><td>git</td><td>14s ago</td><td>8ms</td><td><span class="badge-up">UP</span></td></tr>
+    <tr><td><span class="mono">203.x.x.x:8200</span></td><td>vault-metrics</td><td>vault</td><td>14s ago</td><td>—</td><td><span class="badge-dn">DOWN</span></td></tr>
+    <tr><td><span class="mono">203.x.x.x:9090</span></td><td>self</td><td>monitor</td><td>14s ago</td><td>3ms</td><td><span class="badge-up">UP</span></td></tr>
+    <tr><td><span class="mono">203.x.x.x:8080</span></td><td>ansible-metrics</td><td>ansible</td><td>14s ago</td><td>21ms</td><td><span class="badge-up">UP</span></td></tr>
+    <tr><td><span class="mono">193.x.x.x:9100</span></td><td>grid-node</td><td>ot-north</td><td>14s ago</td><td>34ms</td><td><span class="badge-up">UP</span></td></tr>
+    <tr><td><span class="mono">193.x.x.x:9100</span></td><td>grid-node</td><td>ot-south</td><td>14s ago</td><td>29ms</td><td><span class="badge-up">UP</span></td></tr>
+  </table>
+</div>
+</div>
+<div class="footer"><span>© 2024 Prabal Urja Limited.</span><span>PUL-MONITOR v2.4</span></div>
+</body></html>

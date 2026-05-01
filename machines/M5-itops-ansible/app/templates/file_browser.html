@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>PUL AWX — File Browser</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#0d1117;color:#c9d1d9;min-height:100vh;display:flex;flex-direction:column}
+.topbar{background:#161b22;border-bottom:1px solid rgba(196,165,62,.2);padding:6px 20px;font-size:10.5px;color:rgba(255,255,255,.32);display:flex;justify-content:space-between}
+.hdr{background:linear-gradient(90deg,#1e1b4b,#161b22);border-bottom:2px solid #c4a53e;padding:0 20px;height:62px;display:flex;align-items:center}
+.hdr h1{color:#c4a53e;font-size:15px;font-weight:700}
+.nav{background:#161b22;border-bottom:1px solid #21262d;display:flex;padding:0 20px;gap:2px}
+.nav a{color:rgba(255,255,255,.45);font-size:12.5px;padding:10px 14px;border-bottom:2px solid transparent;text-decoration:none}
+.nav a:hover,.nav a.active{color:#c4a53e;border-color:#c4a53e}
+.nav .so{margin-left:auto;color:rgba(255,255,255,.3)!important;font-size:12px}
+.main{flex:1;padding:20px;display:grid;grid-template-columns:260px 1fr;gap:16px;align-items:start}
+.sidebar{background:#161b22;border:1px solid #21262d;border-radius:8px;overflow:hidden}
+.sidebar-hdr{background:#21262d;border-bottom:1px solid #30363d;padding:10px 14px;font-size:11.5px;color:#8b949e;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.tree-item{padding:7px 14px;border-bottom:1px solid #21262d;display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;text-decoration:none;color:#c9d1d9}
+.tree-item:hover{background:#1c2128}
+.tree-item.active{background:#1c2128;color:#c4a53e;border-left:2px solid #c4a53e}
+.tree-item .ico{flex-shrink:0;font-size:14px}
+.content-panel{background:#161b22;border:1px solid #21262d;border-radius:8px;overflow:hidden}
+.content-hdr{background:#21262d;border-bottom:1px solid #30363d;padding:10px 14px;display:flex;align-items:center;justify-content:space-between}
+.content-hdr .path{font-family:monospace;font-size:12px;color:#58a6ff}
+.content-hdr .badge{font-size:10px;background:rgba(248,113,113,.15);color:#f87171;padding:2px 8px;border-radius:12px;font-weight:700}
+.file-list{padding:8px 0}
+.file-row{display:flex;align-items:center;gap:10px;padding:7px 14px;border-bottom:1px solid #21262d;font-size:12.5px}
+.file-row:last-child{border-bottom:none}
+.file-row:hover{background:#1c2128}
+.file-row a{color:#58a6ff;text-decoration:none;font-family:monospace;font-size:12px}
+.file-row a:hover{text-decoration:underline}
+.file-row .ico{flex-shrink:0}
+.vault-content{padding:14px;font-family:'Courier New',Consolas,monospace;font-size:12px;line-height:1.7;white-space:pre-wrap;color:#3fb950;background:#0d1117;border-top:1px solid #21262d}
+.vault-banner{background:rgba(248,113,113,.08);border-bottom:1px solid rgba(248,113,113,.2);padding:9px 14px;font-size:11.5px;color:#f87171;display:flex;align-items:center;gap:8px}
+.empty{padding:40px;text-align:center;color:#8b949e;font-size:13px}
+.footer{background:#0d1117;border-top:1px solid #21262d;padding:10px 20px;font-size:10.5px;color:rgba(255,255,255,.22);display:flex;justify-content:space-between}
+</style>
+</head>
+<body>
+<div class="topbar"><span>🇮🇳 Prabal Urja Limited — Ansible Automation Platform</span><span>Logged in as: <strong>{{ user.username }}</strong></span></div>
+<header class="hdr"><h1>⚙️ &nbsp;PUL Ansible AWX — Playbook File Browser</h1></header>
+<nav class="nav">
+  <a href="/dashboard">Dashboard</a>
+  <a href="/jobs">Jobs</a>
+  <a href="/files" class="active">File Browser</a>
+  <a href="#" style="color:rgba(255,255,255,.3)">Templates</a>
+  <a href="#" style="color:rgba(255,255,255,.3)">Inventory</a>
+  <a href="/logout" class="so">Sign Out</a>
+</nav>
+<div class="main">
+  <div class="sidebar">
+    <div class="sidebar-hdr">Project Tree</div>
+    <a href="/files?path=/" class="tree-item {{ 'active' if path == '/' }}"><span class="ico">📁</span> pul-infra-config</a>
+    <a href="/files?path=/group_vars/" class="tree-item {{ 'active' if path == '/group_vars/' }}"><span class="ico">📂</span> group_vars/</a>
+    <a href="/files?path=/group_vars/all/" class="tree-item {{ 'active' if path == '/group_vars/all/' }}" style="padding-left:28px"><span class="ico">📂</span> all/</a>
+    <a href="/files?path=/group_vars/all/vault.yml" class="tree-item {{ 'active' if path == '/group_vars/all/vault.yml' }}" style="padding-left:42px"><span class="ico">🔐</span> vault.yml</a>
+    <a href="/files?path=/playbooks/" class="tree-item {{ 'active' if path == '/playbooks/' }}"><span class="ico">📂</span> playbooks/</a>
+    <a href="/files?path=/inventory/" class="tree-item {{ 'active' if path == '/inventory/' }}"><span class="ico">📂</span> inventory/</a>
+  </div>
+
+  <div class="content-panel">
+    <div class="content-hdr">
+      <span class="path">{{ path }}</span>
+      {% if is_vault %}<span class="badge">🔐 VAULT ENCRYPTED</span>{% endif %}
+    </div>
+
+    {% if is_vault and vault_content %}
+    <div class="vault-banner">
+      ⚠ &nbsp;File is ansible-vault encrypted at rest. Displaying decrypted preview — vault password loaded from <code>/etc/ansible/.vault_pass</code>.
+    </div>
+    <div class="vault-content">{{ vault_content }}</div>
+
+    {% elif content is string %}
+    <div class="empty">📄 File preview not available for this type.</div>
+
+    {% elif content %}
+    <div class="file-list">
+      {% for item in content %}
+      <div class="file-row">
+        {% if item.endswith('/') %}
+        <span class="ico">📂</span>
+        <a href="/files?path={{ path }}{{ item }}">{{ item }}</a>
+        {% else %}
+        <span class="ico">📄</span>
+        {% if item == 'vault.yml' %}
+        <a href="/files?path={{ path }}{{ item }}" style="color:#f87171">{{ item }}</a>
+        {% else %}
+        <a href="/files?path={{ path }}{{ item }}">{{ item }}</a>
+        {% endif %}
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+
+    {% else %}
+    <div class="empty">📭 No files found at this path.</div>
+    {% endif %}
+  </div>
+</div>
+<div class="footer"><span>© 2024 Prabal Urja Limited. DevOps Division.</span><span>PUL-AWX v3.1 | pul-infra-config project</span></div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>PUL AWX — Job Output: {{ job.id }}</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#0d1117;color:#c9d1d9;min-height:100vh;display:flex;flex-direction:column}
+.topbar{background:#161b22;border-bottom:1px solid rgba(196,165,62,.2);padding:6px 20px;font-size:10.5px;color:rgba(255,255,255,.32);display:flex;justify-content:space-between}
+.hdr{background:linear-gradient(90deg,#1e1b4b,#161b22);border-bottom:2px solid #c4a53e;padding:0 20px;height:62px;display:flex;align-items:center;justify-content:space-between}
+.hdr h1{color:#c4a53e;font-size:15px;font-weight:700}
+.nav{background:#161b22;border-bottom:1px solid #21262d;display:flex;padding:0 20px;gap:2px}
+.nav a{color:rgba(255,255,255,.45);font-size:12.5px;padding:10px 14px;border-bottom:2px solid transparent;text-decoration:none}
+.nav a:hover,.nav a.active{color:#c4a53e;border-color:#c4a53e}
+.nav .so{margin-left:auto;color:rgba(255,255,255,.3)!important;font-size:12px}
+.main{flex:1;padding:20px}
+.meta-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.meta-card{background:#161b22;border:1px solid #21262d;border-radius:6px;padding:12px}
+.meta-card .label{font-size:10px;color:#8b949e;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}
+.meta-card .value{font-size:13px;font-weight:600;color:#c9d1d9}
+.badge{display:inline-block;padding:2px 9px;border-radius:12px;font-size:10.5px;font-weight:700}
+.badge-ok{background:rgba(63,185,80,.15);color:#3fb950}
+.badge-fail{background:rgba(248,81,73,.15);color:#f85149}
+.output-panel{background:#0d1117;border:1px solid #21262d;border-radius:8px;overflow:hidden}
+.output-hdr{background:#161b22;border-bottom:1px solid #21262d;padding:10px 14px;font-size:11.5px;color:#8b949e;display:flex;align-items:center;justify-content:space-between}
+.output-hdr .filename{font-family:monospace;color:#58a6ff}
+.output-body{padding:14px;font-family:'Courier New',Consolas,monospace;font-size:12px;line-height:1.7;overflow-x:auto;white-space:pre-wrap;max-height:600px;overflow-y:auto}
+.line-play{color:#c4a53e;font-weight:bold}
+.line-task{color:#58a6ff}
+.line-ok{color:#3fb950}
+.line-changed{color:#f59e0b}
+.line-fail{color:#f85149}
+.line-recap{color:#c4a53e;font-weight:bold}
+.line-vuln{color:#fcd34d;background:rgba(252,211,77,.08);display:block;border-left:3px solid #fcd34d;padding-left:8px;margin-left:-8px}
+.line-key{color:#f87171;background:rgba(248,113,113,.08);display:block;border-left:3px solid #f87171;padding-left:8px;margin-left:-8px}
+.line-normal{color:#c9d1d9}
+.warn-banner{background:rgba(234,179,8,.08);border:1px solid rgba(234,179,8,.25);border-radius:6px;padding:10px 14px;font-size:12px;color:#fcd34d;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.footer{background:#0d1117;border-top:1px solid #21262d;padding:10px 20px;font-size:10.5px;color:rgba(255,255,255,.22);display:flex;justify-content:space-between}
+</style>
+</head>
+<body>
+<div class="topbar"><span>🇮🇳 Prabal Urja Limited — Ansible Automation Platform</span><span>Logged in as: <strong>{{ user.username }}</strong></span></div>
+<header class="hdr"><h1>⚙️ &nbsp;PUL Ansible AWX — Job Output</h1></header>
+<nav class="nav">
+  <a href="/dashboard">Dashboard</a>
+  <a href="/jobs" class="active">Jobs</a>
+  <a href="/files">File Browser</a>
+  <a href="#" style="color:rgba(255,255,255,.3)">Templates</a>
+  <a href="#" style="color:rgba(255,255,255,.3)">Inventory</a>
+  <a href="/logout" class="so">Sign Out</a>
+</nav>
+<div class="main">
+  <div class="meta-bar">
+    <div class="meta-card"><div class="label">Job ID</div><div class="value" style="font-family:monospace;font-size:12px">{{ job.id }}</div></div>
+    <div class="meta-card"><div class="label">Template</div><div class="value">{{ job.name }}</div></div>
+    <div class="meta-card"><div class="label">Launched By</div><div class="value" style="font-family:monospace;font-size:12px">{{ job.launched_by }}</div></div>
+    <div class="meta-card"><div class="label">Status</div>
+      <div class="value"><span class="badge {{ 'badge-ok' if job.status == 'successful' else 'badge-fail' }}">{{ job.status | upper }}</span></div>
+    </div>
+    <div class="meta-card"><div class="label">Started</div><div class="value" style="font-size:12px">{{ job.started }}</div></div>
+    <div class="meta-card"><div class="label">Finished</div><div class="value" style="font-size:12px">{{ job.finished }}</div></div>
+    <div class="meta-card"><div class="label">Duration</div><div class="value">{{ job.duration }}</div></div>
+    <div class="meta-card"><div class="label">Inventory</div><div class="value" style="font-size:12px">{{ job.inventory }}</div></div>
+  </div>
+
+  {% if job.id == 'JOB-20241115-018' %}
+  <div class="warn-banner">⚠ &nbsp;Verbose mode was enabled for this job run — full task output including secret operations is logged below.
+  </div>
+  {% endif %}
+
+  <div class="output-panel">
+    <div class="output-hdr">
+      <span>Standard Output</span>
+      <span class="filename">{{ job.id }}.log</span>
+    </div>
+    <div class="output-body">{% for line in job.output %}{% if line.startswith('PLAY ') %}<span class="line-play">{{ line }}</span>
+{% elif line.startswith('TASK ') %}<span class="line-task">{{ line }}</span>
+{% elif line.startswith('ok:') %}<span class="line-ok">{{ line }}</span>
+{% elif line.startswith('Changed:') or line.startswith('changed:') %}<span class="line-changed">{{ line }}</span>
+{% elif line.startswith('PLAY RECAP') %}<span class="line-recap">{{ line }}</span>
+{% elif 'Vault password' in line or 'vault-password' in line or 'vault_pass' in line or 'GridFall2024' in line %}<span class="line-vuln">{{ line }}</span>
+{% elif '-----BEGIN' in line or '-----END' in line or 'KEY-MATERIAL' in line or 'PLACEHOLDER' in line or 'Ed25519' in line or 'AAAA' in line %}<span class="line-key">{{ line }}</span>
+{% else %}<span class="line-normal">{{ line }}</span>
+{% endif %}{% endfor %}</div>
+  </div>
+</div>
+<div class="footer"><span>© 2024 Prabal Urja Limited. DevOps Division.</span><span>PUL-AWX v3.1 | Job output retained for 90 days</span></div>
+</body>
+</html>
