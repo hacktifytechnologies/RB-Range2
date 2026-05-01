@@ -16,7 +16,7 @@ Use Vault AppRole credentials (from M2 git history) to login to Vault. Then esca
 
 ### Step 1 — AppRole Login with Git-History Credentials
 ```bash
-export VAULT_ADDR="http://203.x.x.x:8200"
+export VAULT_ADDR="http://203.x.x.x:8600"
 
 curl -s -X POST ${VAULT_ADDR}/v1/auth/approle/login \
   -d '{"role_id":"pul-cicd-role-7a3f9b2c1d4e","secret_id":"3b8f2a1c-9d4e-7f6a-2b1c-8d3f9a7e4b2c"}' \
@@ -121,7 +121,7 @@ vault write -f auth/approle/role/pul-cicd/secret-id
 vault kv patch secret/pul/ad bind_pass="NewSecurePass@2024!"
 
 # 4. Block attacker IP
-ufw deny from <ATTACKER_IP> to any port 8200
+ufw deny from <ATTACKER_IP> to any port 8600
 ```
 
 ## Eradication
@@ -145,7 +145,7 @@ ufw deny from <ATTACKER_IP> to any port 8200
 **Report ID:** INREP-IT02-M03 | **Classification:** RESTRICTED
 
 ## Current Situation
-Vault instance (`203.x.x.x:8200`) running in dev mode — root token `pul-vault-root-s3cr3t-2024-gridfall` leaked via systemd journal and process environment. Adversary used AppRole credentials from M2 git history to authenticate, then escalated via leaked root token to read `secret/pul/ad`, obtaining AD monitoring account `CN=svc-monitor:M0n!tor@PUL24` and the monitoring portal pivot host `203.x.x.x:9090`.
+Vault instance (`203.x.x.x:8600`) running in dev mode — root token `pul-vault-root-s3cr3t-2024-gridfall` leaked via systemd journal and process environment. Adversary used AppRole credentials from M2 git history to authenticate, then escalated via leaked root token to read `secret/pul/ad`, obtaining AD monitoring account `CN=svc-monitor:M0n!tor@PUL24` and the monitoring portal pivot host `203.x.x.x:9090`.
 
 **Threat Level:** `CRITICAL` — Vault root access grants read of entire secrets estate.
 
@@ -177,7 +177,7 @@ Vault running with `-dev` flag in production — root token present in systemd u
 **Report ID:** SITREP-IT02-M03 | **Incident:** GRIDFALL-RNG-IT02-M03
 
 ## Incident Overview
-- Vault dev mode root token leaked to systemd journal on `203.x.x.x:8200`.
+- Vault dev mode root token leaked to systemd journal on `203.x.x.x:8600`.
 - Adversary authenticated via AppRole (credentials from M2), then read root token from journal.
 - `secret/pul/ad` read with root token — AD monitoring credential exfiltrated.
 - Pivot to monitoring portal `203.x.x.x:9090` (M4) enabled.
@@ -208,14 +208,14 @@ Vault running with `-dev` flag in production — root token present in systemd u
 
 | Field | Detail |
 |---|---|
-| Target | HashiCorp Vault `203.x.x.x:8200` |
+| Target | HashiCorp Vault `203.x.x.x:8600` |
 | Outcome | **SUCCESSFUL** — Root token extracted from journal; `secret/pul/ad` read |
 | Pivot From | M2 Gitea — Vault AppRole credentials in git history |
 
 ## Commands
 ```bash
 # AppRole login
-curl -s -X POST http://203.x.x.x:8200/v1/auth/approle/login \
+curl -s -X POST http://203.x.x.x:8600/v1/auth/approle/login \
   -d '{"role_id":"pul-cicd-role-7a3f9b2c1d4e","secret_id":"3b8f2a1c-9d4e-7f6a-2b1c-8d3f9a7e4b2c"}'
 
 # Root token from journal (local shell)
