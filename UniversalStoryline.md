@@ -10,7 +10,7 @@
 
 **Designation:** KAAL CHAKRA
 **Internal Aliases:** Trident-7, NEXUS-Shadow (internal PUL SOC designation)
-**Nation-State Nexus:** Pakistan-nexus Advanced Persistent Threat - composite of two real-world groups:
+**Nation-State Nexus:** Composite of two real-world groups:
 - Primary TTP inspiration: APT36 / Transparent Tribe (espionage, credential phishing, CII targeting)
 - Secondary TTP inspiration: RedEcho / TAG-38 (Indian power grid targeting, OT-adjacent intrusions)
 
