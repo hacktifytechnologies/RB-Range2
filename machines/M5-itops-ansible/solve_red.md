@@ -32,11 +32,18 @@ Username: devops-admin
 Password: DevOps@PUL!24
 ```
 
+<img width="2498" height="1314" alt="image" src="https://github.com/user-attachments/assets/531ebf2c-bcdd-4a90-9679-ee9501d0d8ed" />
+
+
+
 ### Step 2 — Navigate to Job History
 ```
 Browse: http://203.x.x.x:8080/jobs
 ```
 Observe job list. Note `JOB-20241115-018 — deploy-dev-infra` as the most recent successful deployment job.
+
+<img width="2559" height="1063" alt="image" src="https://github.com/user-attachments/assets/1588619e-b17e-4f99-883f-6ece38fc7219" />
+
 
 ### Step 3 — Open Job Output
 ```
@@ -56,6 +63,12 @@ TASK [Configure deployment SSH key] ***
 [... SSH PRIVATE KEY MATERIAL ...]
 -----END OPENSSH PRIVATE KEY-----
 ```
+
+<img width="2519" height="1362" alt="image" src="https://github.com/user-attachments/assets/2db71436-4e15-4843-9e32-e962f40e6dac" />
+
+
+<img width="2498" height="1334" alt="image" src="https://github.com/user-attachments/assets/c16b3197-f453-40ff-bcb6-9e992db1cb2d" />
+
 
 ### Step 4 — Extract SSH Key and Save
 ```bash
