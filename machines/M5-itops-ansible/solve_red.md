@@ -87,6 +87,8 @@ Browse: http://203.x.x.x:8080/files?path=/group_vars/all/vault.yml
 ```
 Decrypted preview rendered in browser — confirms SSH key, jump host `11.x.x.x`, user `devops`.
 
+<img width="2003" height="892" alt="image" src="https://github.com/user-attachments/assets/2722672b-445c-438f-a591-4f335b70ce9f" />
+
 ### Step 6 — Pivot to RNG-DEV-01
 ```bash
 ssh -i /tmp/dev_jump_key -o StrictHostKeyChecking=no \
@@ -95,7 +97,7 @@ ssh -i /tmp/dev_jump_key -o StrictHostKeyChecking=no \
 ssh -i /tmp/dev_jump_key devops@11.x.x.x
 ```
 
-<img width="2003" height="892" alt="image" src="https://github.com/user-attachments/assets/2722672b-445c-438f-a591-4f335b70ce9f" />
+
 
 
 **PIVOT COMPLETE — RNG-DEV-01 entry achieved.**
