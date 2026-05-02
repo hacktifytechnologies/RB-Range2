@@ -3,6 +3,37 @@
 # setup.sh — M5 · itops-ansible · RNG-IT-02 | OPERATION GRIDFALL
 # Challenge: Ansible Vault Password + SSH Private Key in AWX Job Output
 # Ubuntu 22.04 LTS | Run deps.sh first | Run as root
+
+# 3. Create the devops user
+#sudo useradd -m -s /bin/bash devops
+
+# 4. Create .ssh directory
+#sudo mkdir -p /home/devops/.ssh
+
+# 5. Paste the public key copied in step 1
+#    Replace the AAAA... part with your actual key output
+#sudo bash -c 'echo "ssh-ed25519 AAAA...PASTE_FULL_KEY_HERE devops@dev-jump.prabalurja.in GRIDFALL-2024" > /home/devops/.ssh/authorized_keys'
+
+# 6. Fix permissions — this is critical, SSH will silently reject wrong perms
+#sudo chmod 700 /home/devops/.ssh
+#sudo chmod 600 /home/devops/.ssh/authorized_keys
+#sudo chown -R devops:devops /home/devops/.ssh
+#sudo chown devops:devops /home/devops
+
+# 7. Enable pubkey auth in sshd (Ubuntu 22.04 has it commented by default)
+#sudo sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config
+#sudo sed -i 's/#AuthorizedKeysFile/AuthorizedKeysFile/' /etc/ssh/sshd_config
+
+# 8. Lock devops password — key-only auth
+#sudo passwd -l devops
+
+# 9. Reload sshd to pick up config changes
+#sudo systemctl reload sshd
+
+# 10. Verify everything looks correct
+#sudo cat /home/devops/.ssh/authorized_keys    # should show the key
+#sudo ls -la /home/devops/.ssh/                # should show drwx------ and -rw-------
+#id devops                                      # should show the user exists
 # =============================================================================
 set -euo pipefail
 
