@@ -97,6 +97,11 @@ ssh -i /tmp/dev_jump_key -o StrictHostKeyChecking=no \
 ssh -i /tmp/dev_jump_key devops@11.x.x.x
 ```
 
+<img width="1807" height="506" alt="image" src="https://github.com/user-attachments/assets/a1fa70fc-7fff-4378-a57b-54cd57b04895" />
+
+
+
+<img width="1921" height="889" alt="image" src="https://github.com/user-attachments/assets/8bdd2ddb-f92d-4666-ab34-401e2976d98e" />
 
 
 
